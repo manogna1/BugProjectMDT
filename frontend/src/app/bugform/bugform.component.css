@@ -1,0 +1,14 @@
+.form-area
+{
+    background-color: #FAFAFA;
+	padding: 10px 40px 60px;
+	border: 1px solid GREY;
+    }
+.container{
+    margin-top:50px;
+    width:1000px;
+    height:500px;
+}
+.invalid-feedback{
+    color:red;
+}

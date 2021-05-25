@@ -1,6 +1,96 @@
-<div>
-    <input placeholder="description" [(ngModel)]='bug.description'>
-    <input placeholder="Email" [(ngModel)]='bug.emailAddress'>
-    
-    <button (click)='save()'>Save</button>
+<div class="container">
+    <div class="form-area">
+        <form [formGroup]="bugForm" (ngSubmit)="onSubmit()">
+            <br style="clear:both">
+            <h3 style="margin-bottom: 10px; text-align: center;">Bug Form</h3>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label>Owner </label>
+                    <input type="text" class="col=md-5 form-control" formControlName="owner"
+                        [ngClass]="{ 'is-invalid': submitted && f.owner.errors }">
+                    <div *ngIf="submitted && f.owner.errors" class="invalid-feedback">
+                        <div *ngIf="f.owner.errors.required">Owner name is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-7">
+                    <label>Email </label>
+                    <input type="text" class="form-control" formControlName="emailAddress"
+                        [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }">
+                    <div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
+                        <div *ngIf="f.emailAddress.errors.required">Email is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label>Bug Priority </label>
+                    <select class="form-control" formControlName="priority"
+                        [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
+                        <option>High</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
+                    <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+                        <div *ngIf="f.priority.errors.required"> Bug Priority is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Project Status </label>
+                    <select class="form-control" formControlName="status"
+                        [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+                        <option>NEW</option>
+                        <option>Progress</option>
+                        <option>finished</option>
+                        <option>closed</option>
+                        <option>Rejected</option>
+                        <option>reopened</option>
+                    </select>
+                    <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                        <div *ngIf="f.status.errors.required">Bug Status is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Owner Project </label>
+                    <input class="form-control" type="text" formControlName="ownerProject"
+                        [ngClass]="{ 'is-invalid': submitted && f.ownerProject.errors }" />
+                    <div *ngIf="submitted && f.ownerProject.errors" class="invalid-feedback">
+                        <div *ngIf="f.ownerProject.errors.required">Owner Project is required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Created Date </label>
+                    <input class="form-control" type="Date" formControlName="createdDate"
+                        [ngClass]="{ 'is-invalid': submitted && f.createdDate.errors }" />
+                    <div *ngIf="submitted && f.createdDate.errors" class="invalid-feedback">
+                        <div *ngIf="f.createdDate.errors.required"> Date is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Completion Date </label>
+                    <input class="form-control" type="Date" formControlName="completionDate" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Description </label>
+                    <textarea class="form-control" type="textarea" formControlName="description"
+                        placeholder="description"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Attach Files </label>
+                    <input type="file" formControlName="attachedFiles" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="text-center">
+                    <button class="btn btn-primary mr-1">Create Bug</button>
+                    <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
