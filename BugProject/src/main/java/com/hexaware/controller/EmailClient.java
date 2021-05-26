@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.hexaware.entity.BugRequest;
 
-@FeignClient(name="email-service")
+@FeignClient(name="EmailService")
 public interface EmailClient {
 	@PostMapping("/email")
 	void sendUpdate(BugRequest bug);

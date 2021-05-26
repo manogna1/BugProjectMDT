@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.controller.EmailClient;
 import com.hexaware.entity.BugRequest;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Service
 public class BugService {
@@ -17,12 +18,17 @@ public class BugService {
 	EmailClient emailClient;
 	@Transactional(rollbackOn = Exception.class, dontRollbackOn = { ArithmeticException.class,
 			IllegalArgumentException.class })
+	@HystrixCommand(fallbackMethod="fallback")
 	public void create(BugRequest bugRequest) throws Exception {
 		System.out.println(bugRequest);
 //		childMethod(bugRequest);
 		bugRepository.save(bugRequest);
 		emailClient.sendUpdate(bugRequest);
 //		throw new Exception();
+	}
+	
+	public void fallback(BugRequest bugRequest) {
+		System.out.println("fallback called...");
 	}
 	public void update(BugRequest bugRequest) throws Exception {
 		System.out.println(bugRequest);
