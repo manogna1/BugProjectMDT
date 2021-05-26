@@ -21,9 +21,12 @@ public class Project {
 	private String description;
 	@Enumerated(EnumType.STRING)
 	private STATUS status;
-	
-	String getStatus() {
-		System.out.println("test");
-		return status.toString();
+	public Long getId() {
+		return id;
 	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 }

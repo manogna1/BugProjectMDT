@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BugformComponent } from './bugform/bugform.component';
 
 const routes: Routes = [
-  { path: '/bugform', component: BugformComponent }
+  { path: 'bugform', component: BugformComponent }
 ];
 
 @NgModule({
