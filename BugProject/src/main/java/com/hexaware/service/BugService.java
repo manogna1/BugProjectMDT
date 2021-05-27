@@ -1,5 +1,8 @@
 package com.hexaware.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
@@ -30,17 +33,26 @@ public class BugService {
 	public void fallback(BugRequest bugRequest) {
 		System.out.println("fallback called...");
 	}
-	public void update(BugRequest bugRequest) throws Exception {
+	public void update(Long id,BugRequest bugRequest) throws Exception {
 		System.out.println(bugRequest);
-//		childMethod(bugRequest);
-		bugRepository.save(bugRequest);
-//		throw new Exception();
+		Optional<BugRequest> existRequest=bugRepository.findById(id);
+		BugRequest updateRequest=existRequest.get();
+		updateRequest= bugRequest;
+		updateRequest.setId(id);
+		bugRepository.save(updateRequest);
+		System.out.println("Updated!!");
+		
 	}
-	public void getAll(BugRequest bugRequest) throws Exception {
-		System.out.println(bugRequest);
-//		childMethod(bugRequest);
-		bugRepository.save(bugRequest);
-//		throw new Exception();
+	public List<BugRequest> getAll() throws Exception {
+		List<BugRequest> allBugs= bugRepository.findAll();
+		return allBugs;	
+	}
+	public Optional<BugRequest> getBug(Long id) throws Exception {
+		Optional<BugRequest> allBugs= bugRepository.findById(id);
+		return allBugs;	
+	}
+	public void delete(Long id) throws Exception {
+		bugRepository.deleteById(id);
 	}
 
 }
