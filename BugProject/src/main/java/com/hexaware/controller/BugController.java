@@ -22,26 +22,28 @@ import com.hexaware.service.BugService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class BugController {
 	@Autowired
 	BugService bugService;
 	
-	
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET, value = "/bug/{id}")
 	public Optional<BugRequest> getBug(@PathVariable Long id) throws Exception {
 		System.out.println("get bug called");
 		System.out.println("bug id"+id);
 		return bugService.getBug(id);
 	}
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET, value = "/bug")
 	public List<BugRequest> getAllBug() throws Exception {
 		System.out.println("get all bugs called");
 		List<BugRequest> allBugs = bugService.getAll();
-		System.out.println(allBugs.get(0).toString());
+		//System.out.println(allBugs.get(0).toString());
 		return allBugs;
 
 	}
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.POST, value = "/bug")
 	@ApiOperation(consumes = "application/json", value = "create Bug")
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -49,7 +51,7 @@ public class BugController {
 		bugService.create(bugRequest);
 		return bugRequest.getId();
 	}
-	
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.PUT, value = "/bug/{id}")
 	public Long updateBug(@RequestBody BugRequest bugRequest, @PathVariable Long id) throws Exception {
 		System.out.println("update bug called");
@@ -57,7 +59,7 @@ public class BugController {
 		bugService.update(id,bugRequest);
 		return bugRequest.getId();
 	}
-	
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.DELETE, value = "/bug/{id}")
 	public void deleteBug(@PathVariable Long id) throws Exception {
 		System.out.println("delete bug called");

@@ -8,11 +8,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BugformComponent } from './bugform/bugform.component';
 import BugService from './services/BugService';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BugformComponent
+    BugformComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
