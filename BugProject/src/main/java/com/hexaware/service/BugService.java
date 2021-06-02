@@ -24,10 +24,8 @@ public class BugService {
 	@HystrixCommand(fallbackMethod="fallback")
 	public void create(BugRequest bugRequest) throws Exception {
 		System.out.println(bugRequest);
-//		childMethod(bugRequest);
 		bugRepository.save(bugRequest);
 		emailClient.sendUpdate(bugRequest);
-//		throw new Exception();
 	}
 	
 	public void fallback(BugRequest bugRequest) {
@@ -41,7 +39,6 @@ public class BugService {
 		updateRequest.setId(id);
 		bugRepository.save(updateRequest);
 		System.out.println("Updated!!");
-		
 	}
 	public List<BugRequest> getAll() throws Exception {
 		List<BugRequest> allBugs= bugRepository.findAll();

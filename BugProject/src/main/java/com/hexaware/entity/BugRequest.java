@@ -1,9 +1,9 @@
 package com.hexaware.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,10 +14,12 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-public class BugRequest {
+public class BugRequest implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
 	@NotBlank(message = "Email cannot be Blank.")
@@ -26,11 +28,13 @@ public class BugRequest {
 //	@NotNull
 	private String priority;
 	private STATUS status;
-//	@ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id")
-	private String ownerProject;//TODO need Project as an entity ??
+	@ManyToOne
+	@JoinColumn(name = "project_id", referencedColumnName = "id")
+	@JsonBackReference(value = "bug-project")
+	private Project ownerProject;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdDate = new Date();
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date completionDate;
 	private String description;
 	private boolean attachedfiles;
@@ -75,11 +79,11 @@ public class BugRequest {
 		this.status = status;
 	}
 
-	public String getOwnerProject() {
+	public Project getOwnerProject() {
 		return ownerProject;
 	}
 
-	public void setOwnerProject(String ownerProject) {
+	public void setOwnerProject(Project ownerProject) {
 		this.ownerProject = ownerProject;
 	}
 

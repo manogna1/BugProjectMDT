@@ -1,4 +1,4 @@
-package com.hexaware.controller;
+package com.hexaware.service;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
